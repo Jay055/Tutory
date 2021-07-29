@@ -9,7 +9,14 @@ require('dotenv').config();
 const PORT = process.env.PORT;
 const SECRET = process.env.SECRET;
 db();
-app.use(cors());
+
+const corsConfig = {
+  origin: ['http://localhost:3000'],
+
+  credentials: true,
+};
+
+app.use(cors(corsConfig));
 app.use(express.json());
 
 // set up session
