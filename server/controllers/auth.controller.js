@@ -2,16 +2,16 @@ const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 
 const register = async (req, res) => {
+  const { email, password, name } = req.body.user;
+
+  const user = await User.findOne({ email }).exec();
+
+  if (user) return res.status(409).send({ error: 'User already exists' });
+
   try {
-    const { email, password, firstName, lastName } = req.body;
-
-    const user = await User.findOne({ email }).exec();
-
-    if (user) return res.status(409).send({ error: 'User already exists' });
-
     const hashPassword = bcrypt.hashSync(password, 10);
 
-    const newUser = new User({ ...req.body, password: hashPassword });
+    const newUser = new User({ email, name, password: hashPassword });
 
     const currentUser = await newUser.save();
     req.session.uid = currentUser._id;

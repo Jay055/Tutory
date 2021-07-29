@@ -13,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // set up session
+
 app.use(
   session({
     name: 'sid',
