@@ -4,7 +4,6 @@ import apiService from '../../ApiService';
 export const login = (user) => {
   return async (dispatch) => {
     const data = await apiService.login(user);
-
     dispatch({ type: actionTypes.LOGIN, payload: data });
   };
 };

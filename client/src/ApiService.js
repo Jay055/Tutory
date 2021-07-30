@@ -5,9 +5,13 @@ let apiService = {};
 
 apiService.register = async (user) => {
   try {
-    const { data } = await axios.post(`${baseURL}/register`, {
-      user,
-    });
+    const { data } = await axios.post(
+      `${baseURL}/register`,
+      {
+        user,
+      },
+      { withCredentials: true }
+    );
     return data;
   } catch (err) {
     return Error(err);
