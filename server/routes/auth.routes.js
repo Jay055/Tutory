@@ -1,6 +1,9 @@
 const router = require('express').Router();
 
-const authMiddleware = require('../middlewares/auth.middlewares');
+const {
+  authSignIn,
+  authMiddleware,
+} = require('../middlewares/auth.middlewares');
 const {
   login,
   register,
@@ -11,6 +14,6 @@ const {
 router.post('/register', register);
 router.post('/login', login);
 router.get('/logout', authMiddleware, logout);
-router.get('/profile', authMiddleware, profile);
+router.get('/profile', authMiddleware, authSignIn, profile);
 
 module.exports = router;

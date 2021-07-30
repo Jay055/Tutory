@@ -8,18 +8,13 @@ import apiService from '../../ApiService';
 import { Form, Button, Container } from 'react-bootstrap';
 
 const Login = (props) => {
-  const initialState = {
-    email: '',
-    password: '',
-  };
-
-  const currentUser = useSelector((state) => state.users);
+  const { user } = useSelector((state) => state.users);
 
   useEffect(() => {
-    if (currentUser) {
+    if (user) {
       props.history.push('/userdashboard');
     }
-  }, currentUser);
+  }, [user]);
 
   const dispatch = useDispatch();
 
@@ -35,9 +30,10 @@ const Login = (props) => {
       const user = { email, password };
 
       const response = await apiService.login(user);
+   
       if (!(response instanceof Error)) {
-        dispatch(login(user));
-        window.localStorage.setItem('user', JSON.stringify(response));
+        window.localStorage.setItem('user', JSON.stringify(response.user));
+        dispatch(login());
         toast.success('login successful');
         props.history.push('/userdashboard');
         setLoading(false);

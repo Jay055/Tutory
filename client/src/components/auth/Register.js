@@ -1,18 +1,19 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';
 import { login, register } from '../../store/actions/userActions';
 import { Form, Button, Card } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
+import apiService from '../../ApiService';
 
-const Login = (props) => {
-  const initialState = {
-    email: '',
-    password: '',
-    firstName: '',
-    lastName: '',
-  };
+const Register = (props) => {
+  const { user } = useSelector((state) => state.users);
 
+  useEffect(() => {
+    if (user) {
+      props.history.push('/userdashboard');
+    }
+  }, [user]);
 
   const dispatch = useDispatch();
 
@@ -20,13 +21,24 @@ const Login = (props) => {
   const [email, setEmail] = useState('test@test');
   const [password, setPassword] = useState('test');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const newUser = { name, email, password };
-      dispatch(register(newUser));
-      toast.success('Registration successful');
-      props.history.push('/userdashboard');
+      const user = { name, email, password };
+      const response = await apiService.register(user);
+
+      if (!(response instanceof Error)) {
+        window.localStorage.setItem(
+          'user',
+          JSON.stringify(response.currentUser)
+        );
+        toast.success('Registration successful');
+        dispatch(register());
+        props.history.push('/userdashboard');
+      } else {
+        toast.error('Email already exists');
+    
+      }
     } catch (err) {
       toast.error(err);
     }
@@ -73,4 +85,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Register;

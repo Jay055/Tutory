@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
-import { REGISTER, LOGIN } from '../actions/actionTypes';
+import { REGISTER, LOGIN, LOGOUT } from '../actions/actionTypes';
 
-const initialState = { user: localStorage.getItem('user') };
+// const initialState = { user: localStorage.getItem('user') };
+const initialState = { user: JSON.parse(window.localStorage.getItem('user')) };
 
 const users = (state = initialState, action) => {
   switch (action.type) {
@@ -9,6 +10,8 @@ const users = (state = initialState, action) => {
       return { ...state, user: action.payload };
     case LOGIN:
       return { ...state, user: action.payload };
+    case LOGOUT:
+      return { ...state, user: null };
     default:
       return { ...state };
   }

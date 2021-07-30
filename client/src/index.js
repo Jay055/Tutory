@@ -19,6 +19,7 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -1,5 +1,7 @@
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const register = async (req, res) => {
   const { email, password, name } = req.body.user;
@@ -15,19 +17,20 @@ const register = async (req, res) => {
 
     const currentUser = await newUser.save();
     req.session.uid = currentUser._id;
+    currentUser.password = undefined;
     res.status(201).send({
-      status: `User with email ${currentUser.email} has been created`,
+      currentUser,
     });
   } catch (err) {
     console.log(err);
-    res.status(400).send({ error: 'User could not be registered' });
+    res.status(400).send({ err: 'User could not be registered' });
   }
 };
 
 const login = async (req, res) => {
   try {
     const { email, password } = req.body.user;
-   
+
     let user = await User.findOne({ email }).exec();
 
     if (!user) return res.status(401).send('Invalid Username or password');
@@ -38,7 +41,13 @@ const login = async (req, res) => {
       return res.status(400).send({ err: 'Invalid Username or password' });
 
     req.session.uid = user._id;
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '3d',
+    });
+
     user.password = undefined;
+
+    res.cookie('token', token, { httpOnly: true });
     res.status(201).send({ user });
   } catch (err) {
     console.log({ err: err });
@@ -61,6 +70,7 @@ const logout = (req, res) => {
   try {
     req.session.destroy();
     res.clearCookie('sid');
+    res.clearCookie('token');
     res.sendStatus(200);
   } catch (err) {
     res.status(500).send({ error: 'Logout not successful' });

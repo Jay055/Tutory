@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 const session = require('express-session');
 const db = require('./config/db');
+const morgan = require('morgan');
 require('dotenv').config();
 
 const PORT = process.env.PORT;
@@ -18,6 +19,7 @@ const corsConfig = {
 
 app.use(cors(corsConfig));
 app.use(express.json());
+app.use(morgan('dev'));
 
 // set up session
 
