@@ -10,6 +10,9 @@ const UserDashboard = (props) => {
         <div>
           <div>UserDashboard </div>
           <h1>Welcome {user.name}!</h1>
+          <h3> Become an Educator with courses </h3>
+          Create Course 
+        
           <p>{user.email}</p>
         </div>
       )}

@@ -1,0 +1,46 @@
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+const testSchema = new mongoose.Schema({
+  title: String,
+  questions: [{ question: String }],
+});
+
+const chaptersSchema = new mongoose.Schema(
+  {
+    title: String,
+    level: String,
+    method: String,
+    duration: String,
+    video_url: {},
+    slug: { type: String, lowercase: true },
+    tests: [testSchema],
+  },
+  { timestamps: true }
+);
+
+const courseSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    language: {
+      type: String,
+      required: true,
+    },
+    image: {},
+    slug: { type: String, lowercase: true },
+
+    chapters: [chaptersSchema],
+    teacher: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+    },
+  },
+
+  { timestamps: true }
+);
+
+const Course = mongoose.model('Course', courseSchema);
+module.exports = User;
