@@ -27,3 +27,5 @@ export const logout = () => {
     dispatch({ type: actionTypes.LOGOUT, payload: data });
   };
 };
+
+

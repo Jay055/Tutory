@@ -59,4 +59,20 @@ apiService.logout = async () => {
   }
 };
 
+// courses
+apiService.createCourse = async (course) => {
+  try {
+    const { data } = await axios.post(
+      `${baseURL}/createcourse`,
+      { course },
+
+      { withCredentials: true }
+    );
+
+    return data;
+  } catch (err) {
+    return Error(err);
+  }
+};
+
 export default apiService;

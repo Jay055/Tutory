@@ -29,7 +29,9 @@ const courseSchema = new Schema(
       type: String,
       required: true,
     },
+    description: { type: String },
     image: {},
+    duration: {},
     slug: { type: String, lowercase: true },
 
     chapters: [chaptersSchema],
@@ -43,4 +45,4 @@ const courseSchema = new Schema(
 );
 
 const Course = mongoose.model('Course', courseSchema);
-module.exports = User;
+module.exports = Course;

@@ -1,5 +1,7 @@
 const express = require('express');
-const router = require('./routes/auth.routes');
+const authRouter = require('./routes/auth.routes');
+const courseRouter = require('./routes/course.routes');
+
 const cors = require('cors');
 const app = express();
 const session = require('express-session');
@@ -38,7 +40,8 @@ app.use(
   })
 );
 
-app.use(router);
+app.use(authRouter);
+app.use(courseRouter);
 app.get('*', (req, res) => {
   res.status(404).send('Page not found');
 });

@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import apiService from '../../ApiService';
 import { useHistory } from 'react-router-dom';
 import { logout } from '../../store/actions/userActions';
 
 import { LinkContainer } from 'react-router-bootstrap';
 
 const Header = () => {
-  const { user, isAuthenticated } = useSelector((state) => state.users);
-  console.log(user);
+  const { user } = useSelector((state) => state.users);
+
   const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
@@ -23,7 +22,6 @@ const Header = () => {
     window.localStorage.removeItem('user');
     history.push('/');
     window.location.reload();
-   
   };
 
   return (

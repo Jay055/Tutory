@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { REGISTER, LOGIN, LOGOUT } from '../actions/actionTypes';
+import { REGISTER, LOGIN, LOGOUT, CREATE_COURSE } from '../actions/actionTypes';
 
 // const initialState = { user: localStorage.getItem('user') };
 const initialState = { user: JSON.parse(window.localStorage.getItem('user')) };
