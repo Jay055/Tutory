@@ -79,6 +79,7 @@ const uploadImage = async (req, res) => {
         console.log(err);
         return res.sendStatus(422);
       }
+
       res.send(data);
     });
   } catch (err) {

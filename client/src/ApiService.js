@@ -89,4 +89,18 @@ apiService.getTutorCourses = async () => {
   }
 };
 
+// image
+apiService.uploadImage = async (image) => {
+  try {
+    const { data } = await axios.post(
+      `${baseURL}/upload-image`,
+      { image },
+      { withCredentials: true }
+    );
+    return data;
+  } catch (err) {
+    return Error(err);
+  }
+};
+
 export default apiService;

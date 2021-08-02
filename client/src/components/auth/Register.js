@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';
-import { login, register } from '../../store/actions/userActions';
-import { Form, Button, Card } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { register } from '../../store/actions/userActions';
+import { Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import apiService from '../../ApiService';
 
 const Register = (props) => {
@@ -37,7 +37,6 @@ const Register = (props) => {
         props.history.push('/userdashboard');
       } else {
         toast.error('Email already exists');
-    
       }
     } catch (err) {
       toast.error(err);

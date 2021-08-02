@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';
-import { login, register } from '../../store/actions/userActions';
-import { Link, Redirect } from 'react-router-dom';
+import { login } from '../../store/actions/userActions';
+import { Link } from 'react-router-dom';
 import apiService from '../../ApiService';
 
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 
 const Login = (props) => {
   const { user } = useSelector((state) => state.users);
@@ -30,7 +30,7 @@ const Login = (props) => {
       const user = { email, password };
 
       const response = await apiService.login(user);
-   
+
       if (!(response instanceof Error)) {
         window.localStorage.setItem('user', JSON.stringify(response.user));
         dispatch(login());
