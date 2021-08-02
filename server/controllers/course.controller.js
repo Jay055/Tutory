@@ -22,7 +22,7 @@ const createCourse = async (req, res) => {
   });
 
   if (courseExists)
-    return res.status(409).send({ status: 'Title already taken' });
+    return res.status(409).send({ status: 'Conflict! Title taken ' });
 
   try {
     const newCourse = await new Course({
@@ -30,6 +30,9 @@ const createCourse = async (req, res) => {
       teacher: req.session.uid,
       ...course,
     }).save();
+    // newCourse.teacher = req.session.uid;
+    console.log('new', newCourse);
+    // await newCourse.save();
 
     res.json(newCourse);
   } catch (err) {
@@ -41,7 +44,7 @@ const createCourse = async (req, res) => {
 const getTutorCourses = async (req, res) => {
   try {
     const courses = await Course.find({ teacher: req.session.uid });
-
+    // console.log(courses);
     res.json(courses);
   } catch (err) {
     console.log(err);
@@ -87,4 +90,28 @@ const uploadImage = async (req, res) => {
   }
 };
 
-module.exports = { createCourse, getTutorCourses, uploadImage };
+// get single course
+const getSingleCourse = async (req, res) => {
+  const { slug } = req.params;
+  try {
+    //
+    const course = await Course.findOne({ slug })
+      .populate('teacher', '_id name')
+      .exec();
+    // .populate()
+    // .exec((err, data) => console.log(data));
+    // console.log(course);
+    console.log(course);
+    res.json(course).status(200);
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+};
+
+module.exports = {
+  createCourse,
+  getTutorCourses,
+  uploadImage,
+  getSingleCourse,
+};

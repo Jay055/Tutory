@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./user.model');
 const { Schema } = mongoose;
 
 const testSchema = new mongoose.Schema({
@@ -36,8 +37,9 @@ const courseSchema = new Schema(
 
     chapters: [chaptersSchema],
     teacher: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+      // required: true,
     },
   },
 
