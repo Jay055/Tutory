@@ -5,8 +5,13 @@ const {
   authMiddleware,
 } = require('../middlewares/auth.middlewares');
 
-const { createCourse } = require('../controllers/course.controller');
+const {
+  createCourse,
+  getTutorCourses,
+} = require('../controllers/course.controller');
 
 router.post('/createcourse', createCourse);
+
+router.get('/tutor-courses', getTutorCourses);
 
 module.exports = router;

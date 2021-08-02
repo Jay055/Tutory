@@ -12,13 +12,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import reducers from './store/reducers/reducers';
 
-
 const store = createStore(
   reducers,
   {},
   composeWithDevTools(applyMiddleware(thunk))
 );
-
 
 ReactDOM.render(
   <React.StrictMode>

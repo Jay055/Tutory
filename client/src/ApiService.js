@@ -34,7 +34,7 @@ apiService.login = async (user) => {
 apiService.profile = async (user) => {
   try {
     const { data } = await axios.get(
-      `${BASE_URL}/profile`,
+      `${baseURL}/profile`,
 
       { withCredentials: true }
     );
@@ -48,7 +48,7 @@ apiService.profile = async (user) => {
 apiService.logout = async () => {
   try {
     const { data } = await axios.get(
-      `${BASE_URL}/logout`,
+      `${baseURL}/logout`,
 
       { withCredentials: true }
     );
@@ -65,6 +65,20 @@ apiService.createCourse = async (course) => {
     const { data } = await axios.post(
       `${baseURL}/createcourse`,
       { course },
+
+      { withCredentials: true }
+    );
+
+    return data;
+  } catch (err) {
+    return Error(err);
+  }
+};
+
+apiService.getTutorCourses = async () => {
+  try {
+    const { data } = await axios.get(
+      `${baseURL}/tutor-courses`,
 
       { withCredentials: true }
     );

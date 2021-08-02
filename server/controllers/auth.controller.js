@@ -30,9 +30,9 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body.user;
-  
+
     let user = await User.findOne({ email }).exec();
-    
+
     if (!user) return res.status(401).send('Invalid Username or password');
 
     const passwordMatch = await bcrypt.compareSync(password, user.password);
@@ -44,7 +44,7 @@ const login = async (req, res) => {
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: '3d',
     });
-
+ 
     user.password = undefined;
 
     res.cookie('token', token, { httpOnly: true });

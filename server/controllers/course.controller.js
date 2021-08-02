@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const createCourse = async (req, res) => {
   const { course } = req.body;
-  console.log(course.title, 'title');
+
   const courseExists = await Course.findOne({
     slug: slugify(course.title.toLowerCase()),
   });
@@ -26,4 +26,15 @@ const createCourse = async (req, res) => {
   }
 };
 
-module.exports = { createCourse };
+//
+const getTutorCourses = async (req, res) => {
+  try {
+    const courses = await Course.find({ teacher: req.session.uid });
+
+    res.json(courses);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = { createCourse, getTutorCourses };

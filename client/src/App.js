@@ -5,6 +5,7 @@ import Footer from './components/Navigation/Footer';
 import UserDashboard from './components/UserDashboard';
 import LessonsPage from './components/LessonsPage';
 import CreateCourse from './components/CreateCourse';
+import TutorCourses from './components/TutorCourses';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ function App() {
             <Route path='/userdashboard' component={UserDashboard} />
             <Route path='/createcourse' component={CreateCourse} />
             <Route path='/lessonspage' component={LessonsPage} />
+            <Route path='/tutorcourses' component={TutorCourses} />
           </Container>
         </main>
         <Footer />

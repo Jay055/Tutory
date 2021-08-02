@@ -19,4 +19,23 @@ const authSignIn = expressJwt({
   algorithms: ['HS256'],
 });
 
+
+const checkEducator = async (req, res, next ) => {
+  try {
+    const user = await User.findById(req.session._id).exec(); 
+    if (!user.isEducator) {
+    
+      return res.sendStatus(403); 
+    }else { 
+      next ();
+    }
+    } catch (err) { 
+      console.log(err)
+    }
+}
+
+
+
+
+
 module.exports = { authMiddleware, authSignIn };
