@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.958.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -18,7 +19,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.3",
     "morgan": "^1.10.0",
-    "slugify": "^1.6.0"
+    "slugify": "^1.6.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "^7.31.0"
