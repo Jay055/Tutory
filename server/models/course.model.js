@@ -16,6 +16,7 @@ const chaptersSchema = new mongoose.Schema(
     video_url: {},
     slug: { type: String, lowercase: true },
     tests: [testSchema],
+    content: String,
   },
   { timestamps: true }
 );

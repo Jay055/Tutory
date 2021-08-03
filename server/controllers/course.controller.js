@@ -2,6 +2,7 @@ const Course = require('../models/course.model');
 const slugify = require('slugify');
 const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
+const { readFileSync } = require('fs');
 
 require('dotenv').config();
 // configure AWS
@@ -67,7 +68,7 @@ const uploadImage = async (req, res) => {
     const type = image.split(';')[0].split('/')[1];
 
     // image params
-    const params = {
+    const bucketParams = {
       Bucket: process.env.AWS_BUCKET,
       Key: `${uuidv4()}.${type}`,
       Body: buff,
@@ -77,7 +78,7 @@ const uploadImage = async (req, res) => {
     };
 
     // upload to s3
-    S3.upload(params, (err, data) => {
+    S3.upload(bucketParams, (err, data) => {
       if (err) {
         console.log(err);
         return res.sendStatus(422);
@@ -98,10 +99,8 @@ const getSingleCourse = async (req, res) => {
     const course = await Course.findOne({ slug })
       .populate('teacher', '_id name')
       .exec();
-    // .populate()
-    // .exec((err, data) => console.log(data));
-    // console.log(course);
-    console.log(course);
+
+    console.log('populated course', course);
     res.json(course).status(200);
   } catch (err) {
     console.log(err);
@@ -109,9 +108,34 @@ const getSingleCourse = async (req, res) => {
   }
 };
 
+// upload video
+const uploadVideo = async (req, res) => {
+  console.log('upload video', req.files);
+
+  // video params
+  const bucketParams = {
+    Bucket: process.env.AWS_BUCKET,
+    Key: `${uuidv4()}.${req.files.video.type.split('/')[1]}`,
+    Body: readFileSync(req.files.video.path),
+    ACL: 'public-read',
+    ContentType: req.files.video.type,
+  };
+
+  // upload to s3
+  S3.upload(bucketParams, (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.sendStatus(422);
+    }
+
+    res.send(data);
+  });
+};
+
 module.exports = {
   createCourse,
   getTutorCourses,
   uploadImage,
   getSingleCourse,
+  uploadVideo,
 };
