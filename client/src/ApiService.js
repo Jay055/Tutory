@@ -103,4 +103,49 @@ apiService.uploadImage = async (image) => {
   }
 };
 
+//  single course
+apiService.getSingleCourse = async (slug) => {
+  try {
+    const { data } = await axios.get(
+      `${baseURL}/single-course/${slug}`,
+
+      { withCredentials: true }
+    );
+    return data;
+  } catch (err) {
+    return Error(err);
+  }
+};
+
+// upload video
+apiService.uploadVideo = async (video) => {
+  try {
+    const { data } = await axios.post(
+      `${baseURL}/video-upload/`,
+
+      video
+      // { withCredentials: true }
+    );
+    return data;
+  } catch (err) {
+    return Error(err);
+  }
+};
+
+//  add Lessons
+apiService.addLesson = async (lesson, slug, id) => {
+  try {
+    const { data } = await axios.post(
+      `${baseURL}/add-lesson/${slug}/${id}`,
+      {
+        lesson,
+      },
+      { withCredentials: true }
+    );
+    return data;
+  } catch (err) {
+    return Error(err);
+  }
+};
+
 export default apiService;

@@ -18,8 +18,8 @@ const Login = (props) => {
 
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState('test@test');
-  const [password, setPassword] = useState('test');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {

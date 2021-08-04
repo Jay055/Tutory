@@ -31,9 +31,6 @@ const createCourse = async (req, res) => {
       teacher: req.session.uid,
       ...course,
     }).save();
-    // newCourse.teacher = req.session.uid;
-    console.log('new', newCourse);
-    // await newCourse.save();
 
     res.json(newCourse);
   } catch (err) {
@@ -45,7 +42,7 @@ const createCourse = async (req, res) => {
 const getTutorCourses = async (req, res) => {
   try {
     const courses = await Course.find({ teacher: req.session.uid });
-    // console.log(courses);
+
     res.json(courses);
   } catch (err) {
     console.log(err);
@@ -110,8 +107,6 @@ const getSingleCourse = async (req, res) => {
 
 // upload video
 const uploadVideo = async (req, res) => {
-  console.log('upload video', req.files);
-
   // video params
   const bucketParams = {
     Bucket: process.env.AWS_BUCKET,
@@ -132,10 +127,29 @@ const uploadVideo = async (req, res) => {
   });
 };
 
+const addLesson = async (req, res) => {
+  const { slug, teacherId } = req.params;
+
+  const { title, method, duration, video } = req.body.lesson;
+
+  const lesson = await Course.findOneAndUpdate(
+    {
+      slug: slug,
+    },
+    { $push: { chapters: { title, method, duration, video } } },
+
+    { new: true }
+  )
+    .populate('teacher', 'name')
+    .exec();
+  res.json(lesson);
+};
+
 module.exports = {
   createCourse,
   getTutorCourses,
   uploadImage,
   getSingleCourse,
   uploadVideo,
+  addLesson,
 };

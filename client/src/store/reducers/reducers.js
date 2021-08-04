@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { REGISTER, LOGIN, LOGOUT, CREATE_COURSE } from '../actions/actionTypes';
 
-
 const initialState = { user: JSON.parse(window.localStorage.getItem('user')) };
 
 const users = (state = initialState, action) => {

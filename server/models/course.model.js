@@ -13,7 +13,7 @@ const chaptersSchema = new mongoose.Schema(
     level: String,
     method: String,
     duration: String,
-    video_url: {},
+    video: {},
     slug: { type: String, lowercase: true },
     tests: [testSchema],
     content: String,

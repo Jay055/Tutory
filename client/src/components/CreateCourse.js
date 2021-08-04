@@ -16,10 +16,9 @@ const CreateCourse = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const course = { title, language, image, duration, description };
+    const response = await apiService.createCourse(course);
     try {
-      const response = await apiService.createCourse(course);
-
-      history.push('/lessonspage');
+      history.push(`/tutorcourses`);
     } catch (err) {
       toast.error('Course could not be created. Please use another title');
     }
@@ -52,8 +51,6 @@ const CreateCourse = () => {
     try {
       // set image in the state
       setImage({ ...data });
-
-     
     } catch (err) {
       console.log(err);
     }

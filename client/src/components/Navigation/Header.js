@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { logout } from '../../store/actions/userActions';
 
 import { LinkContainer } from 'react-router-bootstrap';
+import './Navigation.css';
 
 const Header = () => {
   const { user } = useSelector((state) => state.users);

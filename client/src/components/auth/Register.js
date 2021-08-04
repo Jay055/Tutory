@@ -17,9 +17,9 @@ const Register = (props) => {
 
   const dispatch = useDispatch();
 
-  const [name, setName] = useState('test');
-  const [email, setEmail] = useState('test@test');
-  const [password, setPassword] = useState('test');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();

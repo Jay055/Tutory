@@ -1,0 +1,12 @@
+.dashboard-container {
+  /* height: 80%; */
+  height: 100vh;
+  text-align: center;
+  background-color: beige;
+}
+
+.btn-margin {
+  margin-top: 20rem;
+ 
+
+}

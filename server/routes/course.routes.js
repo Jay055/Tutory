@@ -12,6 +12,7 @@ const {
   uploadImage,
   getSingleCourse,
   uploadVideo,
+  addLesson,
 } = require('../controllers/course.controller');
 
 router.post('/createcourse', createCourse);
@@ -23,5 +24,8 @@ router.post('/upload-image', uploadImage);
 router.get('/single-course/:slug', getSingleCourse);
 // video upload
 router.post('/video-upload', formidable(), uploadVideo);
+// add lessons
+
+router.post('/add-lesson/:slug/:teacherId', addLesson);
 
 module.exports = router;

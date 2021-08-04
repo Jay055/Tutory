@@ -44,7 +44,7 @@ const login = async (req, res) => {
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: '3d',
     });
-    console.log(req.session.uid);
+   
     user.password = undefined;
 
     res.cookie('token', token, { httpOnly: true });
