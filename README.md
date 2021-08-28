@@ -44,4 +44,3 @@ Tutory was created using:
 **Front end:** React, Redux, React-Bootstrap.</br>
 **Back end:** Express, Node.js, MongoDB, Mongoose.
 
-## Welcome to Tutory
